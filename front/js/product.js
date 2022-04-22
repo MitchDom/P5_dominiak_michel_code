@@ -43,6 +43,12 @@ const image = document.getElementById("image").src;
 const titre = document.getElementById("title").textContent;
 const prix = document.getElementById("price").textContent;
 
+if(quantite == 0 || choixCouleur == "") {
+  alert("Veuillez remplir tous les champs obligatoires");
+  return
+}
+
+
 let produitsPanier = {
   id: requeteId,
   quantité: quantite,
