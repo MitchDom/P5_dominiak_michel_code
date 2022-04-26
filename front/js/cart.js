@@ -42,6 +42,9 @@ fetch(`http://localhost:3000/api/products/${canape.id}`)
                 `
                 // on appelle la fonction de calcul du prix total après chaque boucle de canapé puisque JS est asynchrone
                 calculPriceOneCanape()
+                supprimerProduit()
+                supprimerPanier()
+                changerQuantite()
 }); 
 } 
 
@@ -74,4 +77,57 @@ calculPriceOneCanape = function () {
   spanQuantity.textContent = nbeArticles
   spanPrice.textContent = total
   }
+
+// Fonction pour supprimer un article
+
+function supprimerProduit() {
+  const suppressionArticle = document.querySelectorAll(".deleteItem");
   
+  for (let i = 0; i < suppressionArticle.length; i++) {
+    suppressionArticle[i].addEventListener("click", (event) => {
+      event.preventDefault();
+      panier.splice(i, 1);
+      localStorage.setItem("articles", JSON.stringify(panier));
+      alert("Votre produit a été supprimé");
+      location.reload();
+    });
+  }
+}
+;
+
+//Fonction pour vider entierement le panier
+/*function supprimerPanier() {
+  const viderPanier = document.getElementById(".cart__delete");
+  viderPanier.addEventListener("click", (event) => {
+   event.preventDefault();
+   localStorage.clear();
+   alert("Le panier a été supprimé");
+   location.href = "index.html";
+  });
+ }
+ ; */
+
+//Fonction pour changer la quantité d'un article
+function changerQuantite() {
+  let selectionQuantite = document.querySelectorAll(".itemQuantity");
+    for(let i = 0; i < selectionQuantite.length; i ++) {
+      selectionQuantite[i].addEventListener("change", (event) => {
+        event.preventDefault();
+        let articleQuantite = event.target.value;
+        let nouveauPanier = {
+          id: panier[i].id,
+          quantité: articleQuantite,
+          couleur: panier[i].couleur,
+          img: panier[i].img,
+          alt: panier[i].alt,
+          nom: panier[i].nom,
+          prix: panier[i].prix
+        };
+        panier[i] = nouveauPanier;
+        localStorage.clear();
+        localStorage.setItem("articles", JSON.stringify(panier));
+        location.reload();
+    }); 
+  }
+}
+;
