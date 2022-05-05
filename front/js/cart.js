@@ -44,6 +44,7 @@ fetch(`http://localhost:3000/api/products/${canape.id}`)
                 calculPriceOneCanape()
                 // on appelle la fonction suppression article
                 supprimerProduit()
+
                 // on appelle la fonction pour le changement de quantité dans le panier
                 changerQuantite()
                         
@@ -122,24 +123,25 @@ function changerQuantite() {
     for(let i = 0; i < selectionQuantite.length; i ++) {
       selectionQuantite[i].addEventListener("change", (event) => {
         event.preventDefault();
+        let parent = event.target.closest('.cart__item')
+        let panier = JSON.parse(localStorage.getItem('articles'))
+
         let articleQuantite = event.target.value;
-        let nouveauPanier = {
-          id: panier[i].id,
+        let nouveauCanape = {
+          id: parent.dataset.id,
           quantité: articleQuantite,
-          couleur: panier[i].couleur,
-          img: panier[i].img,
-          alt: panier[i].alt,
-          nom: panier[i].nom,
-          prix: panier[i].prix
+          couleur: parent.dataset.color,
         };
-        panier[i] = nouveauPanier;
+        let newPanier = panier.filter(canape => canape.id !== parent.dataset.id || canape.couleur !== parent.dataset.color)
+        newPanier.push(nouveauCanape)
         localStorage.clear();
-        localStorage.setItem("articles", JSON.stringify(panier));
+        localStorage.setItem("articles", JSON.stringify(newPanier));
         location.reload();
     }); 
   }
 }
 ;
+
 
 // remplissage du formulaire //
 
@@ -365,73 +367,3 @@ fetch("http://localhost:3000/api/products/order", post)
 });
 }
 validerCommande();
-
-
-
-
-
-
-// Création du client
-
-/* 03/05 boutonCommander.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  if (validFirstName() && validLastName() && validCity() && validAddress() && validEmail()) {
-    let contact = {
-      firstName: inputFirstName.value,
-      lastName: inputLastName.value,
-      address: inputAddress.value,
-      city: inputCity.value,
-      email: inputEmail.value,
-    };
-    console.log(contact)
-
-    localStorage.setItem("contact", JSON.stringify(contact));
-
-    if (localStorage.products === undefined) {
-      alert("Votre panier est vide, retrouvez nos produits sur la page d'Accueil");
-      location.href = "./index.html";
-    } else {
-      postAPI(contact, products);
-    }
-  } else {
-    alert("Veuillez revoir la saisie du formulaire s'il vous plait");
-    validFirstName();
-    validLastName();
-    validCity();
-    validAddress();
-    validEmail();
-  }
-});
-
-// Envoi à l'API du client et des produits + récupération du numéro de commande
-function postAPI(contact, products) {
-  fetch(
-    `http://localhost:3000/api/products/order`,
-
-    {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ contact, products }),
-    }
-  )
-    .then(function (res) {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-
-    .then(function (api) {
-      location.href = `./confirmation.html?id=${api.orderId}`; // Redirige vers la page confirmation avec l'orderId pour pouvoir le récupérer sans le stocker
-    })
-
-    .catch(function (err) {
-      alert("Nous sommes désolés mais une erreur s'est produite, nous n'avons pas pu finalier votre commande, veuillez réessayer plus tard");
-      location.href = "./index.html";
- 
-    });    
-     postAPI()
-}03/05 */

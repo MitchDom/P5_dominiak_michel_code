@@ -53,9 +53,6 @@ let produitsPanier = {
   id: requeteId,
   quantité: quantite,
   couleur: choixCouleur,
-  img: image,
-  nom: titre,
-  prix: prix
 };
 
 //J'initialise le Local Storage

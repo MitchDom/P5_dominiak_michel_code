@@ -1,9 +1,11 @@
 //Fonction pour récuperer le numéro de commande dans l'URL
 function commandeFinale () {
     const url = new URL(window.location.href);
-    const orderId = url.searchParams.get("orderId");
-    const numeroCommande = document.getElementById("orderId");
-    numeroCommande.innerText = localStorage.getItem("orderId");
+    //const orderId = url.searchParams.get("orderId");
+    const numeroCommande = url.searchParams.get("#orderId");
+    console.log(numeroCommande)
+    //const numeroCommande = document.getElementById("orderId");
+    numeroCommande.innerText = localStorage.getItem("#orderId");
     localStorage.clear();
    }
   commandeFinale();
