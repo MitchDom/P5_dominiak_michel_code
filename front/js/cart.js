@@ -80,7 +80,6 @@ calculPriceOneCanape = function () {
    
     if (quantity < 1) {
       canape.querySelector(".itemQuantity").value = 1;
-
       return alert("Veuillez indiquer une quantité > 0 !");
     }
     
