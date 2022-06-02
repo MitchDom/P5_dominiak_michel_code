@@ -72,15 +72,18 @@ calculPriceOneCanape = function () {
     // on crée les variables qui vont servir à calculer les totaux
     // parseInt permet de convertir une chaine de caracrtère en nombres
     let quantity = parseInt(canape.querySelector(".itemQuantity").value);
-
    if (quantity < 1) {
       document.querySelector(".cart__order__form").style.display = "none";
     } else {
       document.querySelector(".cart__order__form").style.display = "block";
     }
+   
     if (quantity < 1) {
+      canape.querySelector(".itemQuantity").value = 1;
+
       return alert("Veuillez indiquer une quantité > 0 !");
     }
+    
     // comme on a ajouté la propriété data-price dans le HTML, dataset permet d'aller rechercher cette propriété
     let price = canape.dataset.price;
     total = total + quantity * price;
@@ -331,6 +334,7 @@ const validEmail = function (inputEmail) {
 
 //Fonction pour finaliser la commande
 function validerCommande() {
+  let panier = JSON.parse(localStorage.getItem("articles"));
   const boutonCommande = document.getElementById("order");
   boutonCommande.addEventListener("click", (event) => {
     event.preventDefault();
