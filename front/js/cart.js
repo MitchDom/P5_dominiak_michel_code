@@ -79,7 +79,14 @@ calculPriceOneCanape = function () {
     }
    
     if (quantity < 1) {
-      canape.querySelector(".itemQuantity").value = 1;
+      document.querySelector(".cart__order__form").style.display = "none";
+    } else {
+      document.querySelector(".cart__order__form").style.display = "block";
+    }
+    if (quantity < 1) {
+      canape.querySelector(".itemQuantity").value = 0;
+      total = 0;
+      /*document.querySelector("data.price").value = 1;*/
       return alert("Veuillez indiquer une quantité > 0 !");
     }
     
