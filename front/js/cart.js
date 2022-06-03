@@ -69,14 +69,9 @@ calculPriceOneCanape = function () {
 
   // on boucle
   for (let canape of allCanapes) {
-    // on crée les variables qui vont servir à calculer les totaux
-    // parseInt permet de convertir une chaine de caracrtère en nombres
+
     let quantity = parseInt(canape.querySelector(".itemQuantity").value);
-   if (quantity < 1) {
-      document.querySelector(".cart__order__form").style.display = "none";
-    } else {
-      document.querySelector(".cart__order__form").style.display = "block";
-    }
+
    
     if (quantity < 1) {
       document.querySelector(".cart__order__form").style.display = "none";
@@ -86,8 +81,7 @@ calculPriceOneCanape = function () {
     if (quantity < 1) {
       canape.querySelector(".itemQuantity").value = 0;
       total = 0;
-      /*document.querySelector("data.price").value = 1;*/
-      return alert("Veuillez indiquer une quantité > 0 !");
+          return alert("Veuillez indiquer une quantité > 0 !");
     }
     
     // comme on a ajouté la propriété data-price dans le HTML, dataset permet d'aller rechercher cette propriété
